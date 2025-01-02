@@ -1,0 +1,7 @@
+[package]
+name = "aoc24-d25"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+aoc24_tools = { path = "../aoc24-tools", version = "0.1.0" }

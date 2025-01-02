@@ -1,0 +1,7 @@
+[template]
+cargo_generate_version = ">=0.9.0"
+
+[placeholders]
+year = { type="string", prompt="What year?", default = "2024"}
+day = { type="string", prompt="Puzzle day?" }
+title = { type="string", prompt="What's the title of the puzzle?" }

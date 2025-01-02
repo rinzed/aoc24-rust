@@ -1,0 +1,35 @@
+Register A: 59397658
+Register B: 0
+Register C: 0
+
+Program: 2,4,1,1,7,5,4,6,1,4,0,3,5,5,3,0
+
+
+         0   2   4   6   8   A   B   C
+         1   2   3   4   5   6   7   8
+012345x7
+21741053
+
+0   BST reg A           reg_B = reg_A >> 3       -- reg_A% 8
+2   BXL lit 1           reg_B = reg_B ^ 0x001
+4   CDV reg B           reg_C = reg_A << reg_B   --reg_A / (2 pow reg B)
+6   BXC xxxxx           reg_B = reg_B ^ reg_C
+8   BXL lit 4           reg_B = reg_B ^ 0x100
+A   ADV lit 3           reg_A = reg_A << 3              --/ 8
+B   OUT reg B           out += reg_B >> 3
+C   GOTO lit 0          if reg_A % 8 == 0 then goto 0
+
+
+0   reg_B = reg_A % 0x111               // register b is waarde 0..8
+2   reg_B = reg_B ^ 0x001               // flip laatste bit van register B
+4   reg_C = reg_A / (2 pow reg B)       // reg_C is reg_A, maar shifted 0 tot 8 bits (kortom max 8 bits hebben invloed)
+4   reg_B = reg_B ^ reg_C               // flip de bits opnieuw maar nu tegen een shifted A
+8   reg_B = reg_B ^ 0x100               // flip het 3de bit
+A   reg_A = reg_A << 3                  // shift nu register A voor volgende loop
+B   out += (reg_B >> 3) | 0x111         // neem de laatste 3 bits van register B
+C   if reg_A % 8 == 0 then goto 0
+
+
+idee: het heeft iets te maken met blokjes van 3 bits.
+dus als we iets vinden wat matcht aan het einde of aan het begin,
+dan zou het te maken moeten hebben met 3 bits.

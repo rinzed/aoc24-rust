@@ -1,0 +1,8 @@
+[package]
+name = "aoc24-d21"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+aoc24_tools = { path = "../aoc24-tools", version = "0.1.0" }
+lazy_static = "1.5.0"

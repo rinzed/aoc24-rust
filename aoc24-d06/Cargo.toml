@@ -1,0 +1,12 @@
+[package]
+name = "aoc24-d06"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rustc_version = "0.4"
+criterion = "0.5.1"
+
+[[bench]]
+name = "my_benchmark"
+harness = false
