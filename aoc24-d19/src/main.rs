@@ -61,11 +61,11 @@ fn can_create_design_using(initial_design: &str, available_towels: &Vec<&str>) -
                 continue;
             }
             // check if the start matches:
-            let design_start = &design[0..start_towel.len()];
+            let design_start = &design[..start_towel.len()];
             if start_towel != design_start {
                 continue;
             }
-            let remaining_design: &str = design[start_towel.len()..design.len()].as_ref();
+            let remaining_design = &design[start_towel.len()..];
             if remaining_design.is_empty() {
                 return true;
             }
@@ -80,12 +80,12 @@ fn can_create_design_using(initial_design: &str, available_towels: &Vec<&str>) -
                 }
                 // check if the END matches:
                 let design_end = &remaining_design
-                    [remaining_design.len() - end_towel.len()..remaining_design.len()];
+                    [remaining_design.len() - end_towel.len()..];
                 if end_towel != design_end {
                     continue;
                 }
                 // now try recursing with what remains
-                let remaining = &remaining_design[0..remaining_design.len() - end_towel.len()];
+                let remaining = &remaining_design[..remaining_design.len() - end_towel.len()];
                 if remaining.is_empty() {
                     return true;
                 }

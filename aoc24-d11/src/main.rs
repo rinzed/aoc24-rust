@@ -88,9 +88,8 @@ fn blink_single_stone_using_queue(
 fn parse_as_hashmap(data: &str) -> HashMap<String, usize> {
     let mut stones = HashMap::new();
     for value in data.split_whitespace() {
-        let engraved_number = value.to_string();
         stones
-            .entry(engraved_number.clone())
+            .entry(value.to_string())
             .and_modify(|count| *count += 1)
             .or_insert(1);
     }
@@ -100,7 +99,6 @@ fn parse_as_hashmap(data: &str) -> HashMap<String, usize> {
 fn smarter_blinking(stones: HashMap<String, usize>, number_of_blinks: u8) -> usize {
     let mut stones = stones;
     for _ in 0..number_of_blinks {
-        //println!("Iteration {blink}: Distinct stones {}", stones.len());
         stones = blink_hashmap_of_stones(&stones);
     }
 
@@ -111,7 +109,7 @@ fn blink_hashmap_of_stones(stones: &HashMap<String, usize>) -> HashMap<String, u
     let mut result = HashMap::with_capacity(stones.len());
 
     for (engraving, count) in stones {
-        let new_stones = blink_single_stone(engraving, count);
+        let new_stones = blink_single_stone(engraving, *count);
         for (new_engraving, new_count) in new_stones {
             result
                 .entry(new_engraving)
@@ -123,7 +121,7 @@ fn blink_hashmap_of_stones(stones: &HashMap<String, usize>) -> HashMap<String, u
     result
 }
 
-fn blink_single_stone(engraved_number: &String, &count: &usize) -> Vec<(String, usize)> {
+fn blink_single_stone(engraved_number: &String, count: usize) -> Vec<(String, usize)> {
     if engraved_number == "0" || engraved_number == "" {
         Vec::from([("1".to_string(), count)])
     } else if engraved_number.len() % 2 == 0 {
